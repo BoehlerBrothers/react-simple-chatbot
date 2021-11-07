@@ -210,6 +210,8 @@ class ChatBot extends Component {
 
   getTriggeredStep = (trigger, value) => {
     const steps = this.generateRenderedStepsById();
+
+    this.onChange(value);
     return typeof trigger === 'function' ? trigger({ value, steps }) : trigger;
   };
 
@@ -248,15 +250,19 @@ class ChatBot extends Component {
 
     if (data && data.value) {
       currentStep.value = data.value;
+      this.onChange(data.value);
     }
     if (data && data.hideInput) {
       currentStep.hideInput = data.hideInput;
+      this.onChange(data.value);
     }
     if (data && data.hideExtraControl) {
       currentStep.hideExtraControl = data.hideExtraControl;
+      this.onChange(data.value);
     }
     if (data && data.trigger) {
       currentStep.trigger = this.getTriggeredStep(data.trigger, data.value);
+      this.onChange(data.value);
     }
 
     if (isEnd) {
@@ -340,6 +346,11 @@ class ChatBot extends Component {
         });
       }, 300);
     }
+  };
+
+  onChange = value => {
+    console.log(value);
+    return value;
   };
 
   handleEnd = () => {
@@ -755,6 +766,7 @@ ChatBot.propTypes = {
   inputStyle: PropTypes.objectOf(PropTypes.any),
   opened: PropTypes.bool,
   toggleFloating: PropTypes.func,
+  onChange: PropTypes.func,
   placeholder: PropTypes.string,
   recognitionEnable: PropTypes.bool,
   recognitionLang: PropTypes.string,
