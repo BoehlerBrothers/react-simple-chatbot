@@ -64,6 +64,7 @@ const ThemedExample = () => (
           console.log(value);
         }}
         onChange={value => {
+          console.log('HEY');
           console.log(value);
         }}
       />
