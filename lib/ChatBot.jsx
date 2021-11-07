@@ -213,9 +213,10 @@ class ChatBot extends Component {
     const { previousSteps } = this.state;
     const lastStepIndex = previousSteps.length > 0 ? previousSteps.length - 1 : 0;
     const { onChange } = this.props;
-    if (value) {
+    if (onChange && value) {
       onChange({ id: previousSteps[lastStepIndex].id, value });
     }
+
     return typeof trigger === 'function' ? trigger({ value, steps }) : trigger;
   };
 
